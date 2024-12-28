@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <title>{% block title %}File Encryption App{% endblock %}</title>
+    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<header style="background-color: #f2f2f2; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+    <h1 style="margin: 0; font-size: 24px;">Secure Sharing</h1>
+    <nav>
+      <a href="{% url 'Home_page' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Home</a>
+      <a href="{% url 'filesharing_home' %}" style="color: #333; text-decoration: none; margin-right: 20px;">FileShare</a>
+      <a href="{% url 'home' %}" style="color: #333; text-decoration: none; margin-right: 20px;">ChatBOX</a>
+      <a href="{% url 'Home_page' %}" style="color: #333; text-decoration: none; margin-right: 20px;">About</a>
+      <a href="{% url 'Home_page' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Testimonial</a>
+      <a href="{% url 'Home_page' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Contact</a>
+      <a href="{% url 'logout' %}" style="color: #333; text-decoration: none;">Logout</a>
+    </nav>
+  </header>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg mb-8">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-7">
+                    <div class="flex items-center py-4">
+                        <a href="{% url 'filesharing_home' %}" class="font-semibold text-gray-500 text-lg hover:text-green-500">File Encryption App</a>
+                    </div>
+                    <div class="flex items-center space-x-1">
+                        <a href="{% url 'filesharing_home' %}" class="py-4 px-2 text-gray-500 hover:text-green-500">Home</a>
+                        <a href="{% url 'encrypt' %}" class="py-4 px-2 text-gray-500 hover:text-green-500">Encrypt</a>
+                            
+                            <a href="{% url 'decrypt' %}" class="py-4 px-2 text-gray-500 hover:text-green-500">Decrypt</a>
+                
+                        <a href="{% url 'file_list' %}" class="py-4 px-2 text-gray-500 hover:text-green-500">Files</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="container mx-auto px-4">
+        {% if messages %}
+        <div class="mb-8">
+            {% for message in messages %}
+            <div class="p-4 rounded-md {{ message.tags|yesno:'bg-green-100 text-green-700,bg-red-100 text-red-700' }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

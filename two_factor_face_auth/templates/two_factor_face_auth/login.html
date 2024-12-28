@@ -1,0 +1,295 @@
+
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Django chatapp" />
+    <meta name="description" content="Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly chat, friend management, and social interaction." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Django chatapp" />
+    <meta name="description" content="Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly chat, friend management, and social interaction." />
+    <meta property="og:image" content="https://filesstatic.netlify.app/Chatapp/img/share.jpeg" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Django chatapp" />
+    <meta property="twitter:image" content="https://filesstatic.netlify.app/Chatapp/img/share.jpeg" />
+    <meta name="description" content="Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly chat, friend management, and social interaction." />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://filesstatic.netlify.app/chatapp/favicon_io/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://filesstatic.netlify.app/chatapp/favicon_io/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://filesstatic.netlify.app/chatapp/favicon_io/favicon-16x16.png" />
+    <link rel="manifest" href="https://filesstatic.netlify.app/chatapp/favicon_io/manifest.json" />
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #131518;
+            font-family: sans-serif;
+            color: aliceblue;
+            background-image: url('https://i.ibb.co/2SQ9Bny/DALL-E-2024-11-04-05-58-33-A-futuristic-digital-interface-background-with-all-faces-shown-from-the-f.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Ensures the background covers the entire height */
+            margin: 0;
+          }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            position: relative;
+            top: 30px;
+            height: 90vh;
+            background-color: #282a2d;
+            border: 2px solid rgb(255, 132, 0);
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 4px 4px 10px -4px #9339f5;
+        }
+        @media screen and (max-width: 550px) {
+            .container {
+                top: 0px;
+                max-width: 550px;
+                height: 100vh;
+            }
+        }
+        #title {
+            color: #fff;
+            font-size: 48px;
+            margin-top: 40px;
+        }
+        form {
+            width: 80%;
+            margin: 0px auto;
+        }
+        #login-fields {
+            width: 100%;
+        }
+        #login-fields input {
+            margin-bottom: 20px;
+            padding: 12px 0px;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+            background: #131518;
+            border-radius: 8px;
+            outline: none;
+            border: none;
+        }
+        ::placeholder {
+            color: #7a7a7a;
+            opacity: 1;
+        }
+        #password-relative {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        #password-relative a {
+            transition-duration: 0.2s;
+            color: #9339f5;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 400;
+            outline: none;
+        }
+        #password-relative a:hover,
+        #password-relative a:focus {
+            transition-duration: 0.2s;
+            color: #a57df5;
+        }
+        button {
+            margin-bottom: 6px;
+            width: 60%;
+            color: #fff;
+            font-size: 20px;
+            background: #9339f5;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            padding: 16px 0px;
+        }
+        button:hover {
+            transition-duration: 0.2s;
+            background: #6421eb;
+        }
+        .message {
+            width: 80%;
+            margin: 0px auto;
+            color: #f53939;
+            font-size: 18px;
+        }
+        .message:hover {
+            transition-duration: 0.2s;
+            color: #f57d7d;
+        }
+        @media screen and (max-width: 550px) {
+            form {
+                width: 90%;
+            }
+        }
+        .video-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            display: none;
+        }
+        
+        #screenshot-video {
+            width: 100%;
+            border-radius: 8px;
+            background: #131518;
+        }
+        
+        #video-button, #login-button {
+            margin: 10px auto;
+            width: 60%;
+            color: #fff;
+            font-size: 20px;
+            background: #9339f5;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            padding: 16px 0px;
+        }
+        
+        #login-button {
+            display: none;
+        }
+        
+        .step-2 {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header style="background-color: #f2f2f2; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="margin: 0; font-size: 24px;color:black;">Secure Sharing</h1>
+        <nav>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Home</a>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">About</a>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Testimonial</a>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Contact</a>
+        </nav>
+      </header>
+    <div class="container">
+        <br /><br /><br /><br />
+        <div id="login-header">
+            <div id="title">Login</div>
+        </div>
+        <br /><br /><br />
+        
+        <!-- Step 1: Regular Login -->
+        <div class="step-1">
+            <form id="initial-login-form" method="post">
+                {% csrf_token %}
+                <div id="login-fields">
+                    <input type="email" placeholder="Email" name="email" id="email" required value="{{ email }}" />
+                    <input type="password" placeholder="Password" id="password" name="pass" required />
+                </div>
+                <div id="password-relative">
+                    <div>
+                        <a href="{% url 'signup' %}">Signup</a>
+                    </div>
+                </div>
+                <button type="button" onclick="proceedToFaceAuth()">Next</button>
+            </form>
+        </div>
+
+        <!-- Step 2: Face Authentication -->
+        <div class="step-2">
+            <div class="video-container">
+                <video id="screenshot-video" autoplay></video>
+            </div>
+            <input type="hidden" id="id_image" name="image" />
+            <button id="video-button">Enable Camera</button>
+            <button id="login-button">Verify & Login</button>
+        </div>
+
+        <br />
+        {% if error_message %}
+            <p class="message">{{ error_message }}</p>
+        {% endif %}
+    </div>
+
+    <script>
+        // Prevent form resubmission
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+
+        const constraints = { video: true };
+        const captureVideoButton = document.querySelector('#video-button');
+        const loginButton = document.querySelector('#login-button');
+        const video = document.querySelector('#screenshot-video');
+        const image_hidden = document.querySelector('#id_image');
+
+        function proceedToFaceAuth() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            document.querySelector('.step-1').style.display = 'none';
+            document.querySelector('.step-2').style.display = 'block';
+            document.querySelector('.video-container').style.display = 'block';
+        }
+
+        captureVideoButton.onclick = function() {
+            captureVideoButton.style.display = 'none';
+            loginButton.style.display = 'inline-block';
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(handleSuccess)
+                .catch(handleError);
+        };
+
+        loginButton.onclick = function() {
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            image_hidden.value = canvas.toDataURL();
+            
+            // Combine face data with login data
+            const formData = new FormData();
+            formData.append('email', document.getElementById('email').value);
+            formData.append('pass', document.getElementById('password').value);
+            formData.append('image', image_hidden.value);
+            
+            // Submit the combined data
+            fetch('{% url "login" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      window.location.href = data.redirect_url;
+                  } else {
+                      document.querySelector('.message').textContent = data.error;
+                  }
+              });
+        };
+
+        function handleSuccess(stream) {
+            video.srcObject = stream;
+            loginButton.disabled = false;
+        }
+
+        function handleError(error) {
+            console.error('Camera access error: ', error);
+            alert('Error accessing the camera. Please check your settings and try again.');
+        }
+    </script>
+</body>
+</html>
+

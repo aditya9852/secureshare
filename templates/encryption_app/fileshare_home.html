@@ -1,0 +1,91 @@
+<!-- templates/encryption_app/home.html -->
+
+{% extends 'encryption_app/base.html' %}
+
+{% block title %}File Encryption Dashboard{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Welcome Section -->
+    <div class="col-span-full bg-white rounded-xl shadow-md p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">Welcome to File Encryption App</h1>
+        <p class="text-gray-600">Securely encrypt and decrypt your files using Triple DES encryption.</p>
+    </div>
+
+    <!-- Quick Actions Section -->
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Encrypt File</h2>
+        <form method="post" action="{% url 'encrypt' %}" enctype="multipart/form-data" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ encryption_form.file.label }}</label>
+                {{ encryption_form.file }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ encryption_form.encryption_key.label }}</label>
+                {{ encryption_form.encryption_key }}
+            </div>
+            <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">
+                Encrypt File
+            </button>
+        </form>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-md p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">Decrypt File</h2>
+        <form method="post" action="{% url 'decrypt' %}" class="space-y-4">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ decryption_form.filename.label }}</label>
+                {{ decryption_form.filename }}
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">{{ decryption_form.encryption_key.label }}</label>
+                {{ decryption_form.encryption_key }}
+            </div>
+            <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+                Decrypt File
+            </button>
+        </form>
+    </div>
+
+    <!-- Recent Files Section -->
+    <div class="col-span-full bg-white rounded-xl shadow-md p-6">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold text-gray-800">Recent Files</h2>
+            <a href="{% url 'file_list' %}" class="text-green-500 hover:text-green-600">View All Files →</a>
+        </div>
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Filename</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Extension</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Upload Date</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    {% for file in recent_files %}
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ file.filename }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ file.file_extension }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {{ file.user.username }}
+                            {% if file.user == request.user %}
+                                <span class="ml-1 text-xs text-gray-400">(you)</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ file.uploaded_at|date:"Y-m-d H:i" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No files encrypted yet</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

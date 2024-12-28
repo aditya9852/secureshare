@@ -1,0 +1,323 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Django chatapp" />
+    <meta property="og:description" content="Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly chat, friend management, and social interaction." />
+    <meta property="og:image" content="https://filesstatic.netlify.app/Chatapp/img/share.jpeg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Django chatapp" />
+    <meta property="twitter:description" content="Django Chat Connect is a web application powered by Django, using AJAX JavaScript for real-time messaging. It enables user-friendly chat, friend management, and social interaction." />
+    <meta property="twitter:image" content="https://filesstatic.netlify.app/Chatapp/img/share.jpeg" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="https://filesstatic.netlify.app/chatapp/favicon_io/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://filesstatic.netlify.app/chatapp/favicon_io/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://filesstatic.netlify.app/chatapp/favicon_io/favicon-16x16.png" />
+    <link rel="manifest" href="https://filesstatic.netlify.app/chatapp/favicon_io/manifest.json" />
+        <title>Signup</title>
+    <style>
+        /* Keep your existing styles and add: */
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+          }
+          body {
+            background-color: #131518;
+            font-family: sans-serif;
+            color: aliceblue;
+            background-image: url('https://i.ibb.co/2SQ9Bny/DALL-E-2024-11-04-05-58-33-A-futuristic-digital-interface-background-with-all-faces-shown-from-the-f.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh; /* Ensures the background covers the entire height */
+            margin: 0;
+        }
+    
+          .container {
+            max-width: 500px;
+            margin: auto;
+            position: relative;
+            top: 30px;
+            height: 90vh;
+            background-color: #282a2d;
+            border: 2px solid rgb(255, 132, 0);
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 4px 4px 10px -4px #9339f5;
+          }
+    
+          #title {
+            color: #fff;
+            font-size: 48px;
+            margin-top: 40px;
+          }
+    
+          form {
+            width: 80%;
+            margin: 0px auto;
+          }
+    
+          #login-fields input {
+            margin-bottom: 20px;
+            padding: 10px 0px;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            font-size: 20px;
+            background: #131518;
+            border-radius: 8px;
+            outline: none;
+            border: none;
+          }
+    
+          ::placeholder {
+            color: #7a7a7a;
+            opacity: 1;
+          }
+    
+          #password-relative {
+            margin-bottom: 20px;
+            text-align: left;
+          }
+    
+          #password-relative a {
+            color: #9339f5;
+            text-decoration: none;
+            font-size: 20px;
+          }
+    
+          button {
+            width: 60%;
+            color: #fff;
+            font-size: 20px;
+            background: #9339f5;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            padding: 16px 0px;
+          }
+    
+          .message {
+            width: 80%;
+            margin: 0px auto;
+            color: #f53939;
+            font-size: 18px;
+          }
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+        }
+        body {
+            background-color: #131518;
+            font-family: century gothic;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            position: relative;
+            top: 30px;
+            height: 90vh;
+            background-color: #282a2d;
+            border: 2px solid rgb(255, 132, 0);
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 4px 4px 10px -4px #9339f5;
+        }
+        /* Add new styles for face capture */
+        .video-container {
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            display: none;
+        }
+        #screenshot-video {
+            width: 100%;
+            border-radius: 8px;
+            background: #131518;
+        }
+        #video-button, #register-button {
+            width: 60%;
+            color: #fff;
+            font-size: 20px;
+            background: #9339f5;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            padding: 16px 0px;
+            margin: 10px auto;
+        }
+        #register-button {
+            display: none;
+        }
+        .step-2 {
+            display: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <header style="background-color: #f2f2f2; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+        <h1 style="margin: 0; font-size: 24px;color:black;">Secure Sharing</h1>
+        <nav>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Home</a>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">About</a>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Testimonial</a>
+          <a href="{% url 'Home2' %}" style="color: #333; text-decoration: none; margin-right: 20px;">Contact</a>
+        </nav>
+      </header>
+    <div class="container">
+        <div id="login-header">
+            <div id="title">Signup</div>
+        </div>
+
+        <!-- Step 1: Regular Signup -->
+        <div class="step-1">
+            <form id="initial-signup-form" method="post" onsubmit="return false;">
+                {% csrf_token %}
+                <div id="login-fields">
+                    <input type="text" autocapitalize="none" placeholder="Username" name="username" id="username" 
+                           value="{{ userdata.username }}" required />
+                    <input type="email" placeholder="Email" name="email" id="email" 
+                           value="{{ userdata.useremail }}" required />
+                    <input type="password" placeholder="Password" id="password1" name="password1" required />
+                    <input type="password" placeholder="Confirm Password" id="password2" name="password2" required />
+                </div>
+                <div id="password-relative">
+                    <div>
+                        <a href="{% url 'login' %}">Login</a>
+                    </div>
+                </div>
+                <button type="button" onclick="validateAndProceed()">Next</button>
+            </form>
+        </div>
+
+        <!-- Step 2: Face Registration -->
+        <div class="step-2">
+            <div class="video-container">
+                <video id="screenshot-video" autoplay></video>
+            </div>
+            <input type="hidden" id="id_image" name="image" />
+            <button id="video-button">Enable Camera</button>
+            <button id="register-button">Complete Registration</button>
+            <button type="button" onclick="backToStep1()" class="back-button">Back</button>
+        </div>
+
+        <br />
+        <p class="message">{{ error_message }}</p>
+    </div>
+
+    <script>
+        const constraints = { video: true };
+        const captureVideoButton = document.querySelector('#video-button');
+        const registerButton = document.querySelector('#register-button');
+        const video = document.querySelector('#screenshot-video');
+        const image_hidden = document.querySelector('#id_image');
+
+        function validateAndProceed() {
+            var username = document.getElementById('username').value;
+            var email = document.getElementById('email').value;
+            var password1 = document.getElementById('password1').value;
+            var password2 = document.getElementById('password2').value;
+            
+            if (/\s/.test(username)) {
+                alert('Username cannot contain spaces.');
+                return false;
+            }
+
+            if (username === '' || email === '' || password1 === '' || password2 === '') {
+                document.querySelector('.message').innerHTML = 'Please fill in all required fields.';
+                return false;
+            }
+
+            if (password1 !== password2) {
+                document.querySelector('.message').innerHTML = 'Your password and confirmation password do not match.';
+                return false;
+            }
+
+            // If validation passes, proceed to face capture
+            document.querySelector('.step-1').style.display = 'none';
+            document.querySelector('.step-2').style.display = 'block';
+            document.querySelector('.video-container').style.display = 'block';
+        }
+
+        function backToStep1() {
+            document.querySelector('.step-1').style.display = 'block';
+            document.querySelector('.step-2').style.display = 'none';
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+            }
+        }
+
+        captureVideoButton.onclick = function() {
+            captureVideoButton.style.display = 'none';
+            registerButton.style.display = 'inline-block';
+            navigator.mediaDevices.getUserMedia(constraints)
+                .then(handleSuccess)
+                .catch(handleError);
+        };
+
+        registerButton.onclick = function() {
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+            image_hidden.value = canvas.toDataURL();
+            
+            // Combine all registration data
+            const formData = new FormData();
+            formData.append('username', document.getElementById('username').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('password1', document.getElementById('password1').value);
+            formData.append('password2', document.getElementById('password2').value);
+            formData.append('image', image_hidden.value);
+            
+            // Submit registration
+            fetch('{% url "signup" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      window.location.href = data.redirect_url;
+                  } else {
+                      document.querySelector('.message').textContent = data.error;
+                      if (data.step === 1) {
+                          backToStep1();
+                      }
+                  }
+              });
+        };
+
+        function handleSuccess(stream) {
+            video.srcObject = stream;
+            registerButton.disabled = false;
+        }
+
+        function handleError(error) {
+            console.error('Camera access error: ', error);
+            alert('Error accessing the camera. Please check your settings and try again.');
+        }
+
+        // Prevent form resubmission
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,25 @@
+
+{% extends 'encryption_app/base.html' %}
+
+{% block title %}Encrypt File{% endblock %}
+
+{% block content %}
+
+<div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-8">
+    <h2 class="text-2xl font-bold mb-6">Encrypt File</h2>
+    <form method="post" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+        <div>
+            <label class="block text-sm font-medium text-gray-700">{{ form.file.label }}</label>
+            {{ form.file }}
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700">{{ form.encryption_key.label }}</label>
+            {{ form.encryption_key }}
+        </div>
+        <button type="submit" class="w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">
+            Encrypt File
+        </button>
+    </form>
+</div>
+{% endblock %}
